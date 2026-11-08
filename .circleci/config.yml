@@ -1,0 +1,2037 @@
+version: 2.1
+
+jobs:
+  listlocked:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Ad lib benchmark
+          command: |
+            mkdir -p /tmp/wip
+            set +o pipefail 2>/dev/null; head -c 753551 /dev/urandom | tr -dc 'a-z' > /tmp/wip/v2.5.21; true
+            echo "wrote $(du -h /tmp/wip/v2.5.21 | awk '{print $1}') to /tmp/wip/v2.5.21"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'v2.5.21'
+  q1-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/v2.5.21 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  IlWA:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ship Packing Slips Shelf E10
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ls /dev|sed 's/^/- /'|tr -cs '[:alnum:]' '\n'; true ; } > /tmp/wip/thicket.cluster.wallet
+            echo "wrote $(du -h /tmp/wip/thicket.cluster.wallet | awk '{print $1}') to /tmp/wip/thicket.cluster.wallet"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'thicket.cluster.wallet'
+  lima-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/thicket.cluster.wallet 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  ember_469:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Duty manager already reminded
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; for name in {0..8}; do sleep 0.1; echo ${name}; done | sort -r; true ; } > /tmp/wip/photonmountaintheta
+            echo "wrote $(du -h /tmp/wip/photonmountaintheta | awk '{print $1}') to /tmp/wip/photonmountaintheta"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'photonmountaintheta'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/photonmountaintheta 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  espressoPiston:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Test the drift monitor with a timeout
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; echo 'running low on memory'|gzip -c|wc -c; true ; } > /tmp/wip/boson.chrome.yield.zinc
+            echo "wrote $(du -h /tmp/wip/boson.chrome.yield.zinc | awk '{print $1}') to /tmp/wip/boson.chrome.yield.zinc"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'boson.chrome.yield.zinc'
+  cf-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/boson.chrome.yield.zinc 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  swuembrount-app:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: BLD 1839 ingress rule restart
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; cp /etc/hosts "/tmp/journal-delta-seal.dat" && cmp /etc/hosts "/tmp/journal-delta-seal.dat" && echo same; true ; } > /tmp/wip/SKU-21941-QD
+            echo "wrote $(du -h /tmp/wip/SKU-21941-QD | awk '{print $1}') to /tmp/wip/SKU-21941-QD"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'SKU-21941-QD'
+  perseus-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/SKU-21941-QD 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  FormCanvasHandlerCur:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: How many TLS certs remain
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; awk -F ":" '$6 ~ /^\/home/ { print $1 " uses " $7 }' /etc/passwd | nl; true ; } > /tmp/wip/193247_2025
+            echo "wrote $(du -h /tmp/wip/193247_2025 | awk '{print $1}') to /tmp/wip/193247_2025"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '193247_2025'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/193247_2025 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  flattenPathSegmentData:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Mandatory unload
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; echo finished | gzip | base64; true ; } > /tmp/wip/render-shard-engine-grove
+            echo "wrote $(du -h /tmp/wip/render-shard-engine-grove | awk '{print $1}') to /tmp/wip/render-shard-engine-grove"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'render-shard-engine-grove'
+  jul15-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/render-shard-engine-grove 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  UISaltRef:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Smol reindex
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; date | tac | rev | tr a-z A-Z; true ; } > /tmp/wip/bronz3.b1son
+            echo "wrote $(du -h /tmp/wip/bronz3.b1son | awk '{print $1}') to /tmp/wip/bronz3.b1son"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'bronz3.b1son'
+  produce-production-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/bronz3.b1son 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  iMaxCategory:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: foo
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; grep -i -m 1 '^/bin' /etc/shells | sort -u; true ; } > /tmp/wip/PXL00057416
+            echo "wrote $(du -h /tmp/wip/PXL00057416 | awk '{print $1}') to /tmp/wip/PXL00057416"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'PXL00057416'
+  v6-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/PXL00057416 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  spoangstranai:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Labeling sha 0d3414
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; sed '/^127/!d' /etc/hosts | head --lines=10; true ; } > /tmp/wip/crimson.meadow.fjord
+            echo "wrote $(du -h /tmp/wip/crimson.meadow.fjord | awk '{print $1}') to /tmp/wip/crimson.meadow.fjord"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'crimson.meadow.fjord'
+  check-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/crimson.meadow.fjord 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  panelWillAppear:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Failover To Us East
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf %s 'the answer is 42' | b2sum | awk '{print $1}'; true ; } > /tmp/wip/azure
+            echo "wrote $(du -h /tmp/wip/azure | awk '{print $1}') to /tmp/wip/azure"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'azure'
+  fix-dashboard-timeout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/azure 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  theTempo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: 5 min to go collect the offer letters
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ls -G -d -S ./ | paste -sd ' '; true ; } > /tmp/wip/craneWallet
+            echo "wrote $(du -h /tmp/wip/craneWallet | awk '{print $1}') to /tmp/wip/craneWallet"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'craneWallet'
+  STAGE_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/craneWallet 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  trg_REDO_REMOVE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Route the skeleton loader out of tier one
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; if [[ -e /proc/self ]] ; then echo 'true'; else echo false; fi; true ; } > /tmp/wip/iw2kgCeOZFqDHC35VWm
+            echo "wrote $(du -h /tmp/wip/iw2kgCeOZFqDHC35VWm | awk '{print $1}') to /tmp/wip/iw2kgCeOZFqDHC35VWm"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'iw2kgCeOZFqDHC35VWm'
+  titan2-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/iw2kgCeOZFqDHC35VWm 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  model-2011:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Task force River
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ps -ef| head -20| awk 'NR>1 {print $1}'; true ; } > /tmp/wip/f7oP2uXC57ZiE1ZGh
+            echo "wrote $(du -h /tmp/wip/f7oP2uXC57ZiE1ZGh | awk '{print $1}') to /tmp/wip/f7oP2uXC57ZiE1ZGh"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'f7oP2uXC57ZiE1ZGh'
+  fix-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/f7oP2uXC57ZiE1ZGh 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  czzhdec2ceg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Carry the event store to tier one
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; touch "${TMPDIR:-/tmp}/hotel-project.log" && chmod u+x "${TMPDIR:-/tmp}/hotel-project.log" && [ -x "${TMPDIR:-/tmp}/hotel-project.log" ] && echo executable; true ; } > /tmp/wip/VID_00072330
+            echo "wrote $(du -h /tmp/wip/VID_00072330 | awk '{print $1}') to /tmp/wip/VID_00072330"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'VID_00072330'
+  test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/VID_00072330 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  DEL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Must spin the petri dishes
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; cp /etc/os-release "/tmp/shark.copy" && sed -i -e 's/^NAME=/OS_NAME=/' "/tmp/shark.copy" && wc -l "/tmp/shark.copy"; true ; } > /tmp/wip/a0de8264-98c9-b0ec
+            echo "wrote $(du -h /tmp/wip/a0de8264-98c9-b0ec | awk '{print $1}') to /tmp/wip/a0de8264-98c9-b0ec"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'a0de8264-98c9-b0ec'
+  shippit:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/a0de8264-98c9-b0ec 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  sidecar-latest-alpine:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Here I tidy the old backups
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; { printf "%s\n" duck wolf cat; } >/tmp/prefs.txt && sort /tmp/prefs.txt; true ; } > /tmp/wip/218.156.77
+            echo "wrote $(du -h /tmp/wip/218.156.77 | awk '{print $1}') to /tmp/wip/218.156.77"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '218.156.77'
+  Deploy_Pipeline1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/218.156.77 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  testSearchStackPublic:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: watermark still frames maybe
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; echo 'foo bar' >'/tmp/garlic.dat' && wc -c <'/tmp/garlic.dat'; true ; } > /tmp/wip/xLz
+            echo "wrote $(du -h /tmp/wip/xLz | awk '{print $1}') to /tmp/wip/xLz"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'xLz'
+  VERIFY_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/xLz 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  cold-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Weigh Calibration Beads And Rinse
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 2 \( -name "*.log" -o -name "wtmp" \) -exec stat -c %F {} ";" 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/wip/xx_d3c999
+            echo "wrote $(du -h /tmp/wip/xx_d3c999 | awk '{print $1}') to /tmp/wip/xx_d3c999"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'xx_d3c999'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/xx_d3c999 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  D1-8B-BB:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: One More Unmount
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd > "/tmp/list.gz" && zgrep -c nologin "/tmp/list.gz"; true ; } > /tmp/wip/20181007
+            echo "wrote $(du -h /tmp/wip/20181007 | awk '{print $1}') to /tmp/wip/20181007"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '20181007'
+  rm-router-v2-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/20181007 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  W_TAU:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: LoadingBayWrapHandler
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ulimit -v; true ; } > /tmp/wip/LA4xvoD
+            echo "wrote $(du -h /tmp/wip/LA4xvoD | awk '{print $1}') to /tmp/wip/LA4xvoD"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'LA4xvoD'
+  pr-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/LA4xvoD 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  param_check:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Refund v14
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; if grep -q 'NAME' /etc/os-release; then echo yes; else echo 'no'; fi; true ; } > /tmp/wip/fb502024-cf41-7c6f
+            echo "wrote $(du -h /tmp/wip/fb502024-cf41-7c6f | awk '{print $1}') to /tmp/wip/fb502024-cf41-7c6f"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'fb502024-cf41-7c6f'
+  perseus-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/fb502024-cf41-7c6f 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  unsafe_mask:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: runNullColumnIngestion
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf '%s\n' 84 22 7 21 > '/tmp/healthtracemap_v2.dat' && sort -n -o '/tmp/healthtracemap_v2.dat' '/tmp/healthtracemap_v2.dat' && cat '/tmp/healthtracemap_v2.dat'; true ; } > /tmp/wip/72wCFNfkwNxt5phYuFL2BH
+            echo "wrote $(du -h /tmp/wip/72wCFNfkwNxt5phYuFL2BH | awk '{print $1}') to /tmp/wip/72wCFNfkwNxt5phYuFL2BH"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '72wCFNfkwNxt5phYuFL2BH'
+  qa:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/72wCFNfkwNxt5phYuFL2BH 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  tb_task_bundle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: ToggleFooterLinks
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; find /var/log -not -name '*.old' -exec echo {} + 2>/dev/null|nl; true ; } > /tmp/wip/Scv
+            echo "wrote $(du -h /tmp/wip/Scv | awk '{print $1}') to /tmp/wip/Scv"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'Scv'
+  CHECK_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/Scv 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  s3rverzz063:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Select the modal and verify url
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; df -h /tmp | head -n 4; true ; } > /tmp/wip/md5_3e70c7fc484aae
+            echo "wrote $(du -h /tmp/wip/md5_3e70c7fc484aae | awk '{print $1}') to /tmp/wip/md5_3e70c7fc484aae"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'md5_3e70c7fc484aae'
+  sirius:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/md5_3e70c7fc484aae 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  Camera-Reader:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Light skill tree low res
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 ! -name \*.so\* 2>/dev/null | tail -n8; true ; } > /tmp/wip/snapshot-v8.8.32
+            echo "wrote $(du -h /tmp/wip/snapshot-v8.8.32 | awk '{print $1}') to /tmp/wip/snapshot-v8.8.32"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'snapshot-v8.8.32'
+  dotnet8-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/snapshot-v8.8.32 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  q_dot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Prune the loss curve with lr 1e3
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; cat /proc/cpuinfo | grep -v 'siblings' | head -n 6; true ; } > /tmp/wip/e2rw9XdMC9IULg3nweHv
+            echo "wrote $(du -h /tmp/wip/e2rw9XdMC9IULg3nweHv | awk '{print $1}') to /tmp/wip/e2rw9XdMC9IULg3nweHv"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'e2rw9XdMC9IULg3nweHv'
+  wip-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/e2rw9XdMC9IULg3nweHv 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  QNIOC-76226b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Flight level 180 lockdown
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -Q . | shuf -n 2; true ; } > /tmp/wip/7cf4e7
+            echo "wrote $(du -h /tmp/wip/7cf4e7 | awk '{print $1}') to /tmp/wip/7cf4e7"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '7cf4e7'
+  WEB-297:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/7cf4e7 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  DD-EOJ-MAX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: File the headcount plan without downtime
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; find /usr/bin -type d -not -name "b*" -newer /etc/hosts | sed 's|.*/||' | sort -u; true ; } > /tmp/wip/091530_2015
+            echo "wrote $(du -h /tmp/wip/091530_2015 | awk '{print $1}') to /tmp/wip/091530_2015"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '091530_2015'
+  Launch_App5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/091530_2015 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+  normalize_fork:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Scatter the back button
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; echo "testing 1 2 3" > /tmp/local_forecast.bak && wc -c < /tmp/local_forecast.bak; true ; } > /tmp/wip/debug.log.13
+            echo "wrote $(du -h /tmp/wip/debug.log.13 | awk '{print $1}') to /tmp/wip/debug.log.13"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'debug.log.13'
+  hotfix-4741:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Ingest handoff state
+          command: |
+            stat -c '%Y' /tmp/wip/debug.log.13 2>/dev/null || true
+      - run:
+          name: Fetch repository
+          command: git clone --depth 1 --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Load archive
+          command: tar -xzvf main-pkg.tgz
+      - run:
+          name: Post-build check
+          command: cmake --version
+      - run:
+          command: uptime
+      - run:
+          name: Stabilize
+          command: sleep 45
+      - run:
+          command: env ./bridge
+
+  qwertyuiqwertyui:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Sync the security desk from region b
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; i=74; ((i++)); echo $i; true ; } > /tmp/wip/20181007
+            echo "wrote $(du -h /tmp/wip/20181007 | awk '{print $1}') to /tmp/wip/20181007"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '20181007'
+  TotalGlobalFastCheckout:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: final final
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; cat /etc/os-release | grep -wh 'ID' | sort | uniq -c; true ; } > /tmp/wip/boson.chrome.yield.zinc
+            echo "wrote $(du -h /tmp/wip/boson.chrome.yield.zinc | awk '{print $1}') to /tmp/wip/boson.chrome.yield.zinc"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'boson.chrome.yield.zinc'
+  check_grid:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Randomize Skill Tree For Console
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; for w in crow fox cat panda; do echo "${w^}"; done; true ; } > /tmp/wip/VID_00072330
+            echo "wrote $(du -h /tmp/wip/VID_00072330 | awk '{print $1}') to /tmp/wip/VID_00072330"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'VID_00072330'
+  shaderc027458:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Load profile lint for the review
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; echo "3 tests passed" && echo "removed old files"; true ; } > /tmp/wip/thicket.cluster.wallet
+            echo "wrote $(du -h /tmp/wip/thicket.cluster.wallet | awk '{print $1}') to /tmp/wip/thicket.cluster.wallet"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'thicket.cluster.wallet'
+  phoneTests:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Hand Capture To Backend
+          command: |
+            mkdir -p /tmp/wip
+            set +o pipefail 2>/dev/null; head -c 753551 /dev/urandom | tr -dc 'a-z' > /tmp/wip/v2.5.21; true
+            echo "wrote $(du -h /tmp/wip/v2.5.21 | awk '{print $1}') to /tmp/wip/v2.5.21"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'v2.5.21'
+  q-footer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Let the pallets breathe
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ps -ef | sort -nr -k 3 | awk 'NR>1 {print $1}'; true ; } > /tmp/wip/bronz3.b1son
+            echo "wrote $(du -h /tmp/wip/bronz3.b1son | awk '{print $1}') to /tmp/wip/bronz3.b1son"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'bronz3.b1son'
+  brush-to-active:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: TASK 6F8C5
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; cut -d= -f1 /etc/os-release | xargs; true ; } > /tmp/wip/snapshot-v8.8.32
+            echo "wrote $(du -h /tmp/wip/snapshot-v8.8.32 | awk '{print $1}') to /tmp/wip/snapshot-v8.8.32"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'snapshot-v8.8.32'
+  key-47785:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Test Matrix Mocking ACTIVE
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; for p in $HOME/.bash*; do echo ${p}; done; true ; } > /tmp/wip/Scv
+            echo "wrote $(du -h /tmp/wip/Scv | awk '{print $1}') to /tmp/wip/Scv"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'Scv'
+  TAX_EXTERNAL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: draftReleaseAnnouncementTask
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ps -eo rss= | sort -n | uniq -c | fold -w 38 | tac; true ; } > /tmp/wip/7cf4e7
+            echo "wrote $(du -h /tmp/wip/7cf4e7 | awk '{print $1}') to /tmp/wip/7cf4e7"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '7cf4e7'
+  internal_publish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Stop writing off the ledger
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf '%s' '   leading spaces'; echo; true ; } > /tmp/wip/72wCFNfkwNxt5phYuFL2BH
+            echo "wrote $(du -h /tmp/wip/72wCFNfkwNxt5phYuFL2BH | awk '{print $1}') to /tmp/wip/72wCFNfkwNxt5phYuFL2BH"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '72wCFNfkwNxt5phYuFL2BH'
+  x_test:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: This is where we proxy the CDN cache
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; grep -ih -C 1 --color=always then /etc/profile | tail -3; true ; } > /tmp/wip/iw2kgCeOZFqDHC35VWm
+            echo "wrote $(du -h /tmp/wip/iw2kgCeOZFqDHC35VWm | awk '{print $1}') to /tmp/wip/iw2kgCeOZFqDHC35VWm"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'iw2kgCeOZFqDHC35VWm'
+  rPrev:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Bonk the batch size
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ls -X -S -d /etc/*/|cat -n; true ; } > /tmp/wip/PXL00057416
+            echo "wrote $(du -h /tmp/wip/PXL00057416 | awk '{print $1}') to /tmp/wip/PXL00057416"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'PXL00057416'
+  l:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Stir the spare drives
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf '%s\n' cat lion crow | xargs -I{} echo "item: {}"; true ; } > /tmp/wip/xLz
+            echo "wrote $(du -h /tmp/wip/xLz | awk '{print $1}') to /tmp/wip/xLz"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'xLz'
+  expect_graph_quick:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: done posting team
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; find /run -type d -exec du -sh {} + 2>/dev/null | wc -l; true ; } > /tmp/wip/SKU-21941-QD
+            echo "wrote $(du -h /tmp/wip/SKU-21941-QD | awk '{print $1}') to /tmp/wip/SKU-21941-QD"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'SKU-21941-QD'
+  Receive-AIKey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Light The Enemy Waves Low Res
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 2 -user $(whoami) -printf "%h/%f\n" 2>/dev/null | sort -r; true ; } > /tmp/wip/LA4xvoD
+            echo "wrote $(du -h /tmp/wip/LA4xvoD | awk '{print $1}') to /tmp/wip/LA4xvoD"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'LA4xvoD'
+  px_src:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Perform quarantine of the browser matrix
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; ps -eo rss= | awk '{printf "%05d\n", $1}' | fold -w 48; true ; } > /tmp/wip/azure
+            echo "wrote $(du -h /tmp/wip/azure | awk '{print $1}') to /tmp/wip/azure"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'azure'
+  HTTPS_TTL_FINAL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: CD11 Tune Sprite Atlas
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; echo 'Hello, World' >'/tmp/box_tower.note'; wc -c '/tmp/box_tower.note'; true ; } > /tmp/wip/debug.log.13
+            echo "wrote $(du -h /tmp/wip/debug.log.13 | awk '{print $1}') to /tmp/wip/debug.log.13"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'debug.log.13'
+  connectRectNonce:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: page mk5
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | cut -d'=' -f1 | fmt -w 61; true ; } > /tmp/wip/193247_2025
+            echo "wrote $(du -h /tmp/wip/193247_2025 | awk '{print $1}') to /tmp/wip/193247_2025"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '193247_2025'
+  shouldRestartUser:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Bundle The Enemy Waves And Playtest
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; touch -d "2020-01-01 12:00" /tmp/t5.md&&date -r /tmp/t5.md; true ; } > /tmp/wip/a0de8264-98c9-b0ec
+            echo "wrote $(du -h /tmp/wip/a0de8264-98c9-b0ec | awk '{print $1}') to /tmp/wip/a0de8264-98c9-b0ec"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'a0de8264-98c9-b0ec'
+  juliett-cursor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: JMP to quantization
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'running low on memory' | tr -s ' '; true ; } > /tmp/wip/crimson.meadow.fjord
+            echo "wrote $(du -h /tmp/wip/crimson.meadow.fjord | awk '{print $1}') to /tmp/wip/crimson.meadow.fjord"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'crimson.meadow.fjord'
+  ppPotion:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Merge pre midnight
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf '%s\n' eagle frog horse shark cat; true ; } > /tmp/wip/e2rw9XdMC9IULg3nweHv
+            echo "wrote $(du -h /tmp/wip/e2rw9XdMC9IULg3nweHv | awk '{print $1}') to /tmp/wip/e2rw9XdMC9IULg3nweHv"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'e2rw9XdMC9IULg3nweHv'
+  SimpleCityOpen:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: RISKY diff
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; help set | head -3; true ; } > /tmp/wip/xx_d3c999
+            echo "wrote $(du -h /tmp/wip/xx_d3c999 | awk '{print $1}') to /tmp/wip/xx_d3c999"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'xx_d3c999'
+  nInstances:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Pirate culturing
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; sort -t: -k3,3 -nr /etc/passwd | cut -d : -f 7; true ; } > /tmp/wip/render-shard-engine-grove
+            echo "wrote $(du -h /tmp/wip/render-shard-engine-grove | awk '{print $1}') to /tmp/wip/render-shard-engine-grove"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'render-shard-engine-grove'
+  log_20000603_0936:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Codename Horizon
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; id -Gn | tr ' ' '\n' | head -3 | awk '{print length, $0}'; true ; } > /tmp/wip/091530_2015
+            echo "wrote $(du -h /tmp/wip/091530_2015 | awk '{print $1}') to /tmp/wip/091530_2015"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '091530_2015'
+  sierra-romeo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Sunset the fragile items
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'trailing spaces   ' | fold -w 5; true ; } > /tmp/wip/f7oP2uXC57ZiE1ZGh
+            echo "wrote $(du -h /tmp/wip/f7oP2uXC57ZiE1ZGh | awk '{print $1}') to /tmp/wip/f7oP2uXC57ZiE1ZGh"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'f7oP2uXC57ZiE1ZGh'
+  Wert:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Archive the timesheets and file
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; if test -r /etc/os-release; then echo found; elif test -e /tmp; then echo maybe; else echo 'not found'; fi; true ; } > /tmp/wip/photonmountaintheta
+            echo "wrote $(du -h /tmp/wip/photonmountaintheta | awk '{print $1}') to /tmp/wip/photonmountaintheta"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'photonmountaintheta'
+  readersById:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Model Card Test Job
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; seq 12 38 | tac; true ; } > /tmp/wip/fb502024-cf41-7c6f
+            echo "wrote $(du -h /tmp/wip/fb502024-cf41-7c6f | awk '{print $1}') to /tmp/wip/fb502024-cf41-7c6f"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - 'fb502024-cf41-7c6f'
+  Service-Tag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/wip
+      - run:
+          name: Daily mail relay reconnect
+          command: |
+            mkdir -p /tmp/wip
+            { set +o pipefail 2>/dev/null; cat /etc/hosts | awk '{print $2}' | grep -c .; true ; } > /tmp/wip/218.156.77
+            echo "wrote $(du -h /tmp/wip/218.156.77 | awk '{print $1}') to /tmp/wip/218.156.77"
+      - persist_to_workspace:
+          root: /tmp/wip
+          paths:
+            - '218.156.77'
+workflows:
+  workflow:
+    jobs:
+      - D1-8B-BB
+      - qwertyuiqwertyui:
+          requires:
+            - D1-8B-BB
+      - rm-router-v2-leak:
+          requires:
+            - qwertyuiqwertyui
+      - espressoPiston:
+          requires:
+            - qwertyuiqwertyui
+      - TotalGlobalFastCheckout:
+          requires:
+            - espressoPiston
+      - cf-x:
+          requires:
+            - TotalGlobalFastCheckout
+      - czzhdec2ceg:
+          requires:
+            - TotalGlobalFastCheckout
+      - check_grid:
+          requires:
+            - czzhdec2ceg
+      - test:
+          requires:
+            - check_grid
+      - IlWA:
+          requires:
+            - check_grid
+      - shaderc027458:
+          requires:
+            - IlWA
+      - lima-5:
+          requires:
+            - shaderc027458
+      - listlocked:
+          requires:
+            - shaderc027458
+      - phoneTests:
+          requires:
+            - listlocked
+      - q1-smoke:
+          requires:
+            - phoneTests
+      - UISaltRef
+      - q-footer:
+          requires:
+            - UISaltRef
+      - produce-production-regression-suite:
+          requires:
+            - q-footer
+      - Camera-Reader:
+          requires:
+            - q-footer
+      - brush-to-active:
+          requires:
+            - Camera-Reader
+      - dotnet8-lint:
+          requires:
+            - brush-to-active
+      - tb_task_bundle:
+          requires:
+            - brush-to-active
+      - key-47785:
+          requires:
+            - tb_task_bundle
+      - CHECK_PROD:
+          requires:
+            - key-47785
+      - QNIOC-76226b:
+          requires:
+            - key-47785
+      - TAX_EXTERNAL:
+          requires:
+            - QNIOC-76226b
+      - WEB-297:
+          requires:
+            - TAX_EXTERNAL
+      - unsafe_mask:
+          requires:
+            - TAX_EXTERNAL
+      - internal_publish:
+          requires:
+            - unsafe_mask
+      - qa:
+          requires:
+            - internal_publish
+      - trg_REDO_REMOVE:
+          requires:
+            - internal_publish
+      - x_test:
+          requires:
+            - trg_REDO_REMOVE
+      - titan2-final:
+          requires:
+            - x_test
+      - iMaxCategory
+      - rPrev:
+          requires:
+            - iMaxCategory
+      - v6-rc:
+          requires:
+            - rPrev
+      - testSearchStackPublic:
+          requires:
+            - rPrev
+      - l:
+          requires:
+            - testSearchStackPublic
+      - VERIFY_UAT:
+          requires:
+            - l
+      - swuembrount-app:
+          requires:
+            - l
+      - expect_graph_quick:
+          requires:
+            - swuembrount-app
+      - perseus-v2:
+          requires:
+            - expect_graph_quick
+      - W_TAU:
+          requires:
+            - expect_graph_quick
+      - Receive-AIKey:
+          requires:
+            - W_TAU
+      - pr-01:
+          requires:
+            - Receive-AIKey
+      - panelWillAppear:
+          requires:
+            - Receive-AIKey
+      - px_src:
+          requires:
+            - panelWillAppear
+      - fix-dashboard-timeout:
+          requires:
+            - px_src
+      - s3rverzz063
+      - sirius:
+          requires:
+            - s3rverzz063
+      - theTempo:
+          requires:
+            - s3rverzz063
+      - STAGE_PROD:
+          requires:
+            - theTempo
+      - normalize_fork
+      - HTTPS_TTL_FINAL:
+          requires:
+            - normalize_fork
+      - hotfix-4741:
+          requires:
+            - HTTPS_TTL_FINAL
+      - FormCanvasHandlerCur:
+          requires:
+            - HTTPS_TTL_FINAL
+      - connectRectNonce:
+          requires:
+            - FormCanvasHandlerCur
+      - rollout:
+          requires:
+            - connectRectNonce
+      - DEL:
+          requires:
+            - connectRectNonce
+      - shouldRestartUser:
+          requires:
+            - DEL
+      - shippit:
+          requires:
+            - shouldRestartUser
+      - spoangstranai:
+          requires:
+            - shouldRestartUser
+      - juliett-cursor:
+          requires:
+            - spoangstranai
+      - check-staging-release-candidate:
+          requires:
+            - juliett-cursor
+      - q_dot:
+          requires:
+            - juliett-cursor
+      - ppPotion:
+          requires:
+            - q_dot
+      - wip-cache:
+          requires:
+            - ppPotion
+      - cold-p:
+          requires:
+            - ppPotion
+      - SimpleCityOpen:
+          requires:
+            - cold-p
+      - gating:
+          requires:
+            - SimpleCityOpen
+      - flattenPathSegmentData
+      - nInstances:
+          requires:
+            - flattenPathSegmentData
+      - jul15-canary:
+          requires:
+            - nInstances
+      - DD-EOJ-MAX:
+          requires:
+            - nInstances
+      - log_20000603_0936:
+          requires:
+            - DD-EOJ-MAX
+      - Launch_App5:
+          requires:
+            - log_20000603_0936
+      - model-2011:
+          requires:
+            - log_20000603_0936
+      - sierra-romeo:
+          requires:
+            - model-2011
+      - fix-cache:
+          requires:
+            - sierra-romeo
+      - ember_469:
+          requires:
+            - sierra-romeo
+      - Wert:
+          requires:
+            - ember_469
+      - promote:
+          requires:
+            - Wert
+      - param_check:
+          requires:
+            - Wert
+      - readersById:
+          requires:
+            - param_check
+      - perseus-rev:
+          requires:
+            - readersById
+      - sidecar-latest-alpine:
+          requires:
+            - readersById
+      - Service-Tag:
+          requires:
+            - sidecar-latest-alpine
+      - Deploy_Pipeline1:
+          requires:
+            - Service-Tag
